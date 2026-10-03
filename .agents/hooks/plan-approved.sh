@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# PostToolUse hook for ExitPlanMode: on plan approval, saves it to .plans/<slug>.md
+# PostToolUse hook for ExitPlanMode: on plan approval, saves it to .agents/.plans/<slug>.md
 # with `status: approved` and tells Claude to start the orchestrator and reviewer.
 set -euo pipefail
 
@@ -45,25 +45,25 @@ if not plan:
 
 if not plan:
     respond("plan-approved hook: could not read the approved plan. Save it to "
-            ".plans/<slug>.md with `status: approved` yourself. Then: " + START.format(path=".plans/<slug>.md"))
+            ".agents/.plans/<slug>.md with `status: approved` yourself. Then: " + START.format(path=".agents/.plans/<slug>.md"))
 
 slug = re.search(r"^slug:\s*([a-z0-9-]+)\s*$", plan, re.MULTILINE)
 if not slug:
     respond("plan-approved hook: the plan has no `slug:` in its frontmatter, so it "
-            "wasn't saved. Follow the plan skill: save it to .plans/<slug>.md in the "
-            "schema with `status: approved`. Then: " + START.format(path=".plans/<slug>.md"))
+            "wasn't saved. Follow the plan skill: save it to .agents/.plans/<slug>.md in the "
+            "schema with `status: approved`. Then: " + START.format(path=".agents/.plans/<slug>.md"))
 slug = slug.group(1)
 
 if re.search(r"^status:", plan, re.MULTILINE):
     plan = re.sub(r"^status:.*$", "status: approved", plan, count=1, flags=re.MULTILINE)
 else:
     respond("plan-approved hook: the plan has no `status:` frontmatter, so it wasn't "
-            "saved. Follow the plan skill's schema, save it to .plans/" + slug +
-            ".md with `status: approved`. Then: " + START.format(path=".plans/" + slug + ".md"))
+            "saved. Follow the plan skill's schema, save it to .agents/.plans/" + slug +
+            ".md with `status: approved`. Then: " + START.format(path=".agents/.plans/" + slug + ".md"))
 
 root = os.environ.get("CLAUDE_PROJECT_DIR") or payload.get("cwd") or os.getcwd()
-os.makedirs(os.path.join(root, ".plans"), exist_ok=True)
-rel = os.path.join(".plans", slug + ".md")
+os.makedirs(os.path.join(root, ".agents", ".plans"), exist_ok=True)
+rel = os.path.join(".agents", ".plans", slug + ".md")
 with open(os.path.join(root, rel), "w") as f:
     f.write(plan)
 

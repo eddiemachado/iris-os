@@ -8,7 +8,7 @@
 
 ## Plan
 
-<!-- `.plans/<slug>.md` and its review result, or "None". -->
+<!-- `.agents/.plans/<slug>.md` and its review result, or "None". -->
 
 ## Testing
 

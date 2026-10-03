@@ -25,7 +25,7 @@ Independently judge each step against a fixed checklist.
 ## 2. Start (once)
 
 1. Read `plan_doc`, `.agents/agent-tools/reviewer/rules.md`, and the repo files it lists.
-2. Write a checklist at the top of `review_file` (`.plans/<slug>.review.md`), one check per line:
+2. Write a checklist at the top of `review_file` (`.agents/.plans/<slug>.review.md`), one check per line:
    ```
    ## Checklist
    AC1  <criterion>      (plan)

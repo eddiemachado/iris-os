@@ -13,7 +13,7 @@ Find what went wrong or cost too much in recent agent runs, and file Linear tick
 
 ## 1. Rules
 
-- Never edit files. Only run `scripts/digest.py`.
+- Never edit files. Only run `scripts/digest.py` and delete finished plans (§4).
 - Never quote raw transcript text in tickets; summarize.
 - Every ticket needs concrete evidence (session/agent, step, error, token numbers, or file path).
 - Max 5 new tickets per run. Skip one-off noise.
@@ -22,7 +22,7 @@ Find what went wrong or cost too much in recent agent runs, and file Linear tick
 ## 2. Gather
 
 1. Run `scripts/digest.py` (this skill's folder). Pass the user's arg: a number → `--since-days N`; a session id → `--session ID`; none → since last retro.
-2. Read `.plans/*.review.md` changed in the same window (checklist, cycles, `PLAN_ISSUE`, `## Result`).
+2. Read `.agents/.plans/*.review.md` changed in the same window (checklist, cycles, `PLAN_ISSUE`, `## Result`).
 3. Read `.agents/agent-memory/*/MEMORY.md` and each note file they link.
 
 Don't open raw transcripts; the digest is enough.
@@ -46,8 +46,10 @@ Memory-promotion tickets end with:
 
 Then run `scripts/digest.py --mark`.
 
-If Linear tools are unavailable: skip filing, don't mark, and list the findings (title, problem, evidence, affected file, suggested change) in the reply.
+Then clean up finished plans: for each `.agents/.plans/<slug>.review.md` containing `## Result: DONE`, delete it and `.agents/.plans/<slug>.md` (`rm`, never `rm -r`). Leave every other plan.
+
+If Linear tools are unavailable: skip filing, don't mark, don't clean up, and list the findings (title, problem, evidence, affected file, suggested change) in the reply.
 
 ## 5. Reply
 
-List ticket URLs (created or commented), or "No issues". Add one line with the run's total tokens from the digest.
+List ticket URLs (created or commented), or "No issues", and the plans deleted. Add one line with the run's total tokens from the digest.

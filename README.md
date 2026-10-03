@@ -10,6 +10,8 @@ Ways of working with AI that includes skills, agents, and context templates
 
 Run `/retro` whenever you want a check-up, and at least every 30 days. It reads Claude Code's session history, which Claude Code deletes after 30 days by default.
 
+Each machine keeps its own history, so run it on every machine you use. A reminder (`.agents/hooks/retro-reminder.sh`) appears when you start a session if `/retro` hasn't run on that machine in 7 days and there are sessions to review.
+
 - `/retro`: everything since the last retro.
 - `/retro 7`: the last 7 days.
 - `/retro <session-id>`: one session.
@@ -17,7 +19,7 @@ Run `/retro` whenever you want a check-up, and at least every 30 days. It reads 
 ### How it works
 
 1. **Summarize.** A script reads this repo's session history and produces a short summary: tokens used per agent, errors, blocked actions, oversized outputs, files read over and over, and review verdicts. Claude only reads this summary, not the full history, which keeps it cheap.
-2. **Add context.** It reads the plan review files (`.plans/*.review.md`) and the agents' memory notes.
+2. **Add context.** It reads the plan review files (`.agents/.plans/*.review.md`) and the agents' memory notes.
 3. **Find problems.** It looks for wasted tokens, repeated failures, unclear plan criteria, reviewer false alarms, gaps between instruction files, and memory notes that should become real rules.
 4. **File tickets.** It creates up to 5 tickets per run in the Linear project **Iris** with the label **retro**. If a matching ticket is already open, it adds a comment instead of a duplicate.
 
@@ -35,7 +37,7 @@ Agents learn in two ways:
 | Session history | `~/.claude/projects/<repo-path>/` | No, this machine only |
 | Last retro marker | `.retro-last` in the folder above | No |
 | Agent memory | `.agents/agent-memory/<agent>/` | Yes, in git |
-| Plan reviews | `.plans/<plan>.review.md` | Yes, in git |
+| Plans and reviews | `.agents/.plans/` | No, gitignored; `/retro` deletes finished ones |
 
 ### Setup
 

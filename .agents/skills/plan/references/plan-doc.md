@@ -4,13 +4,13 @@ This file is the contract. Orchestrator and reviewer consume the file, not the h
 
 ## Location
 
-Write to `<repo>/.plans/<slug>.md`.
+Write to `<repo>/.agents/.plans/<slug>.md`.
 
 - `<slug>` is kebab-case from the title (`oauth-refresh-tokens`).
-- The sibling review log is `<repo>/.plans/<slug>.review.md` (orchestrator/reviewer create this, not planner).
-- `.plans/` is scratch for the loop — do not treat it as source to ship. Prefer gitignoring it in the target repo.
+- The sibling review log is `<repo>/.agents/.plans/<slug>.review.md` (orchestrator/reviewer create this, not planner).
+- `.agents/.plans/` is scratch for the loop and is gitignored. `/retro` deletes plans whose review has `## Result: DONE`.
 
-If the host already wrote a plan somewhere else (Claude `~/.claude/plans/`, Cursor plan UI, Codex), copy or rewrite it into `.plans/<slug>.md` so every host hands orchestrator the same path convention.
+If the host already wrote a plan somewhere else (Claude `~/.claude/plans/`, Cursor plan UI, Codex), copy or rewrite it into `.agents/.plans/<slug>.md` so every host hands orchestrator the same path convention.
 
 ## Required sections
 

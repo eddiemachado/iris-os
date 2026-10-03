@@ -5,7 +5,7 @@ description: >
   ordered steps and a required Acceptance Criteria rubric. Use when the user
   asks to plan or design an approach, when work is non-trivial and no approved
   plan exists, or when orchestrator reports NEEDS_PLAN or NEEDS_REPLAN. Never
-  implements code. On approval, a hook saves the plan to .plans/<slug>.md and
+  implements code. On approval, a hook saves the plan to .agents/.plans/<slug>.md and
   hands it to orchestrator and reviewer.
 ---
 
@@ -23,8 +23,8 @@ Plan with the user in Plan Mode. Never implement.
 ## 2. Start
 
 - Schema: `references/plan-doc.md` (in this skill's folder). Follow it exactly.
-- Re-plan (`NEEDS_REPLAN`): read `.plans/<slug>.md` and the `PLAN_ISSUE` entries in `.plans/<slug>.review.md`. Keep the slug and existing step IDs.
-- New plan: list `.plans/`. Same work exists → amend it. Slug taken by unrelated work → pick another. Never create `-v2` copies.
+- Re-plan (`NEEDS_REPLAN`): read `.agents/.plans/<slug>.md` and the `PLAN_ISSUE` entries in `.agents/.plans/<slug>.review.md`. Keep the slug and existing step IDs.
+- New plan: list `.agents/.plans/`. Same work exists → amend it. Slug taken by unrelated work → pick another. Never create `-v2` copies.
 
 ## 3. Plan with the user
 
@@ -43,7 +43,7 @@ Plan with the user in Plan Mode. Never implement.
 
 ## 5. Hand off
 
-On approval, the `plan-approved` hook saves `.plans/<slug>.md` (`status: approved`) and tells you the path. Then start two background subagents with `plan_doc` = that path, named exactly:
+On approval, the `plan-approved` hook saves `.agents/.plans/<slug>.md` (`status: approved`) and tells you the path. Then start two background subagents with `plan_doc` = that path, named exactly:
 - `orchestrator` (type `orchestrator`)
 - `reviewer` (type `reviewer`)
 

@@ -20,7 +20,7 @@ On the base branch → `git switch -c <name>` per `.agents/rules/git.md`.
 
 - `git log --oneline <base>..HEAD`. No commits → stop.
 - `git diff --stat <base>...HEAD`.
-- If a plan matches this work: `.plans/<slug>.md` and the `## Result` in `.plans/<slug>.review.md`.
+- If a plan matches this work: `.agents/.plans/<slug>.md` and the `## Result` in `.agents/.plans/<slug>.review.md`.
 
 ## 4. Push
 

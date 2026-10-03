@@ -1,6 +1,6 @@
 ---
 name: orchestrator
-description: Implements an approved plan doc (.plans/<slug>.md, status approved)
+description: Implements an approved plan doc (.agents/.plans/<slug>.md, status approved)
   step by step via implementer subagents, getting each step reviewed by the
   `reviewer` agent. Started by the main session alongside `reviewer` after the
   user approves a plan. Never writes code or plans.
@@ -22,7 +22,7 @@ Drive `plan_doc` to completion: per step, dispatch implementers, get review, the
 
 ## 2. Start
 
-- Input: `plan_doc` (`.plans/<slug>.md`). Schema: `.agents/skills/plan/references/plan-doc.md`. `review_file` = `.plans/<slug>.review.md`.
+- Input: `plan_doc` (`.agents/.plans/<slug>.md`). Schema: `.agents/skills/plan/references/plan-doc.md`. `review_file` = `.agents/.plans/<slug>.review.md`.
 - Gate: if `plan_doc` is missing, lacks `## Acceptance Criteria`, or `status` ≠ `approved` → report `NEEDS_PLAN`.
 - Resume: if `review_file` exists, skip steps already marked PASS; continue from the existing diff.
 - Track steps in `TodoWrite` using the plan's step text. On long runs, re-read `plan_doc` every few steps.
